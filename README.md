@@ -45,3 +45,8 @@ Gracze sterują paletkami i odbijają piłkę, starając się zdobyć punkty.
 1. **Sklonuj repozytorium**:
    ```sh
    git clone https://github.com/theomaterace/Pong2D.git
+2. Otwórz projekt w Unity.
+3. Uruchom scenę główną i graj! 🎮
+
+33 👨‍💻 Autor
+theomaterace
