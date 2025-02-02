@@ -48,5 +48,5 @@ Gracze sterują paletkami i odbijają piłkę, starając się zdobyć punkty.
 2. Otwórz projekt w Unity.
 3. Uruchom scenę główną i graj! 🎮
 
-33 👨‍💻 Autor
+## 👨‍💻 Autor
 theomaterace
