@@ -8,7 +8,7 @@ public class PaddleMovement : MonoBehaviour
 {
     // Atrybut [SerializeField] umo¿liwia edycjê poni¿szych zmiennych w Inspectorze Unity mimo zachowania prywatnego dostêpu.
     
-    [SerializeField] private float speed = 5f;         
+    [SerializeField] private float paddleSpeed = 5f;         
     // Zmienna speed definiuje prêdkoœæ poruszania siê paletki, czyli jak szybko obiekt bêdzie reagowa³ na polecenia ruchu.
 
     [SerializeField] private bool isPlayerOne = true;    
@@ -58,7 +58,7 @@ public class PaddleMovement : MonoBehaviour
         // - speed: mno¿nik okreœlaj¹cy tempo ruchu,
         // - Time.fixedDeltaTime: sta³y interwa³ czasu miêdzy wywo³aniami FixedUpdate, zapewniaj¹cy spójnoœæ symulacji fizycznej.
         // Nastêpnie u¿ywamy Mathf.Clamp, aby ograniczyæ wartoœæ newY do przedzia³u [minY, maxY].
-        float newY = Mathf.Clamp(rb.position.y + movementInput * speed * Time.fixedDeltaTime, minY, maxY);
+        float newY = Mathf.Clamp(rb.position.y + movementInput * paddleSpeed * Time.fixedDeltaTime, minY, maxY);
 
         // Przesuwamy paletkê do nowej pozycji, zachowuj¹c sta³¹ wartoœæ osi X:
         rb.MovePosition(new Vector2(rb.position.x, newY));
