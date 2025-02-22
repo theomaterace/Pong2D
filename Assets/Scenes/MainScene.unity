@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 346406426}
   - component: {fileID: 346406428}
   - component: {fileID: 346406429}
+  - component: {fileID: 346406430}
   m_Layer: 0
   m_Name: "Pi\u0142ka"
   m_TagString: Untagged
@@ -407,6 +408,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &346406430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346406425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0bbcfefab0c74980a34f1e99366eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &449351582
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0683baaba070290458428ff3a3b5f472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  paddleSpeed: 5
   isPlayerOne: 1
   minY: -4
   maxY: 4
@@ -1173,7 +1187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0683baaba070290458428ff3a3b5f472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  paddleSpeed: 5
   isPlayerOne: 0
   minY: -4
   maxY: 4
