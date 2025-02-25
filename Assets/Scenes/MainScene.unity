@@ -368,9 +368,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &346406429
 CircleCollider2D:
@@ -382,7 +382,7 @@ CircleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8e1f9df1ccf226a40972d64910430867, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -431,9 +431,9 @@ GameObject:
   m_Component:
   - component: {fileID: 449351584}
   - component: {fileID: 449351585}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: "Dolna \u015Bciana"
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 497510832}
   m_Layer: 0
   m_Name: Paletka 1
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -944,9 +944,9 @@ GameObject:
   m_Component:
   - component: {fileID: 742679695}
   - component: {fileID: 742679696}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: "G\xF3rna \u015Bciana"
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1027,7 +1027,7 @@ GameObject:
   - component: {fileID: 827728546}
   m_Layer: 0
   m_Name: Paletka 2
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1337,9 +1337,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1150574270}
   - component: {fileID: 1150574271}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: "Lewa \u015Bciana"
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1533,9 +1533,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1658877838}
   - component: {fileID: 1658877837}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: "Prawa \u015Bciana"
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

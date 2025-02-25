@@ -56,18 +56,36 @@ public class BallMovement : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    /// <summary>
+    /// Metoda <c>OnCollisionEnter2D</c> jest wywoływana w momencie zderzenia piłki z innymi obiektami dwuwymiarowymi w grze.
+    /// Odpowiada za obsługę kolizji z obiektami oznaczonymi tagami "Wall" oraz "Paddle".
+    /// Dla zderzenia z "Wall" następuje odbicie w osi pionowej,
+    /// natomiast dla zderzenia z "Paddle" wyliczany jest nowy kierunek w zależności od miejsca kontaktu.
+    /// </summary>
+    /// <param name="collision">Obiekt typu <c>Collision2D</c> zawierający informacje na temat zdarzenia kolizji.</param>
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Sprawdzenie, czy obiekt, z którym nastąpiło zderzenie, posiada tag "Wall".
+        // W tym przypadku następuje odbicie piłki w osi pionowej.
         if (collision.gameObject.CompareTag("Wall"))
         {
-
+            Vector2 newVelocity = new Vector2(rb.linearVelocity.x, -rb.linearVelocity.y);
+            rb.linearVelocity = newVelocity;
         }
 
+        // Sprawdzenie, czy obiekt, z którym nastąpiło zderzenie, posiada tag "Paddle".
+        // W tym przypadku obliczany jest nowy kierunek piłki w oparciu o punkt kontaktu.
+        if (collision.gameObject.CompareTag("Paddle"))
+        {
+            // Współczynnik określający, jak daleko od środka paletki piłka trafiła.
+            float hitFactor = (transform.position.y - collision.transform.position.y) / collision.collider.bounds.size.y;
+
+            // Utworzenie nowego kierunku, w którym piłka zostanie odbita.
+            // Oś X jest negowana, aby zmienić stronę, a oś Y zależy od hitFactor.
+            Vector2 newDirection = new Vector2(-rb.linearVelocity.x, hitFactor).normalized;
+
+            // Ustawienie nowej prędkości piłki, biorąc pod uwagę znormalizowany kierunek.
+            rb.linearVelocity = newDirection * speed;
+        }
     }
 }
-
-
-
-//Oto kilka propozycji ulepszeń:
-//2️ Zwiększanie prędkości piłki z czasem – Możemy dodać mechanizm przyspieszania.
-//3️ Resetowanie piłki po zdobyciu punktu – Jeśli piłka wypadnie poza ekran, resetujemy jej pozycję.
