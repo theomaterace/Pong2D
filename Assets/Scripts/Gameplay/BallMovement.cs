@@ -19,6 +19,8 @@ public class BallMovement : MonoBehaviour
     /// </summary>
     private Rigidbody2D rb;
 
+    private ScoreManager scoreManager; // Referencja do menadźera punktów
+
     /// <summary>
     /// Metoda <c>Start</c> jest wywoływana przy aktywacji obiektu w grze.
     /// Służy do inicjalizacji komponentów oraz rozpoczęcia ruchu piłki.
@@ -27,6 +29,8 @@ public class BallMovement : MonoBehaviour
     {
         // Pobranie referencji do komponentu Rigidbody2D przypisanego do tego obiektu.
         rb = GetComponent<Rigidbody2D>();
+
+        scoreManager = Object.FindAnyObjectByType<ScoreManager>(); // Znalezienie ScoreManagera w scenie
 
         // Uruchomienie metody inicjalizującej losowy ruch piłki.
         LaunchBall();
@@ -87,5 +91,40 @@ public class BallMovement : MonoBehaviour
             // Ustawienie nowej prędkości piłki, biorąc pod uwagę znormalizowany kierunek.
             rb.linearVelocity = newDirection * speed;
         }
+    }
+
+    /// <summary>
+    /// Metoda Update() sprawdza, czy piłka przekroczyła granice pola gry.
+    /// - Jeśli piłka wyjdzie poza lewą krawędź (-6.7f), punkt otrzymuje prawy gracz.
+    /// - Jeśli piłka wyjdzie poza prawą krawędź (6.7f), punkt otrzymuje lewy gracz.
+    /// - Po przyznaniu punktu piłka jest resetowana za pomocą metody ResetBall().
+    /// </summary>
+    private void Update()
+    {
+        if (transform.position.x < -6.7f) // Przekroczenie lewej granicy
+        {
+            scoreManager.AddPoint(false); // Punkt dla prawego gracza
+            ResetBall(); // Reset piłki
+
+        }
+        else if(transform.position.x > 6.7f) // Przekroczenie prawej granicy
+        {
+            scoreManager.AddPoint(true); // Punkt dla lewego gracza
+            ResetBall(); // Reset piłki
+
+        }
+    }
+
+    /// <summary>
+    /// Metoda ResetBall() resetuje pozycję piłki po zdobyciu punktu.
+    /// - Przenosi piłkę na środek ekranu.
+    /// - Zatrzymuje jej ruch, ustawiając prędkość na zero.
+    /// - Po krótkim opóźnieniu ponownie uruchamia piłkę.
+    /// </summary>
+    private void ResetBall()
+    {
+        transform.position = Vector2.zero; // Ustawia pozycję piłki na środek ekranu (0,0).
+        rb.linearVelocity = Vector2.zero; // Zatrzymuje ruch piłki, ustawiając jej prędkość na zero.
+        Invoke(nameof(LaunchBall), 1.5f); // Po 1.5 sekundy ponownie uruchamia piłkę.
     }
 }
