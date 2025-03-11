@@ -1,52 +1,43 @@
-using UnityEngine; // Importuje bibliotekê UnityEngine, która zawiera podstawowe klasy i funkcje niezbêdne dla silnika Unity.
-using TMPro; // Importuje bibliotekê TextMeshPro, umo¿liwiaj¹c¹ zaawansowane renderowanie tekstu, co jest szczególnie przydatne przy tworzeniu interfejsu u¿ytkownika.
+using UnityEngine; // Importuje bibliotekê Unity, umo¿liwiaj¹c¹ korzystanie z funkcji silnika Unity
+using TMPro; // Importuje bibliotekê TextMeshPro, pozwalaj¹c¹ na zaawansowane renderowanie tekstu w interfejsie
 
-/// <summary>
-/// Klasa ScoreManager zarz¹dza punktacj¹ graczy w grze.
-/// Umo¿liwia aktualizacjê wyników dla lewego i prawego gracza oraz synchronizacjê tych wyników z interfejsem u¿ytkownika,
-/// wykorzystuj¹c komponenty TextMeshProUGUI.
-/// </summary>
-public class ScoreManager : MonoBehaviour // Definiuje klasê ScoreManager, dziedzicz¹c¹ po MonoBehaviour, co pozwala jej byæ do³¹czon¹ jako komponent do obiektu w scenie Unity.
+public class ScoreManager : MonoBehaviour // Klasa odpowiedzialna za zarz¹dzanie punktacj¹ graczy
 {
-    // Publiczne zmienne umo¿liwiaj¹ce przypisanie referencji do elementów UI w Inspectorze Unity.
+    public TextMeshProUGUI scoreLeftText; // Referencja do komponentu TextMeshProUGUI wyœwietlaj¹cego wynik lewego gracza
+    public TextMeshProUGUI scoreRightText; // Referencja do komponentu TextMeshProUGUI wyœwietlaj¹cego wynik prawego gracza
 
-    public TextMeshProUGUI scoreLeftText; // Przechowuje referencjê do komponentu TextMeshProUGUI, który bêdzie wyœwietla³ wynik lewego gracza.
-    public TextMeshProUGUI scoreRightText; // Przechowuje referencjê do komponentu TextMeshProUGUI, który bêdzie wyœwietla³ wynik prawego gracza.
+    private int scoreLeft = 0; // Przechowuje aktualny wynik lewego gracza
+    private int scoreRight = 0; // Przechowuje aktualny wynik prawego gracza
 
-    // Prywatne zmienne do przechowywania aktualnych wyników obu graczy.
+    [SerializeField] private int maxScore = 10; // Maksymalna liczba punktów, po której gra siê koñczy
 
-    private int scoreLeft = 0; // Inicjuje wynik lewego gracza jako 0.
-    private int scoreRight = 0; // Inicjuje wynik prawego gracza jako 0.
-
-    /// <summary>
-    /// Metoda AddPoint umo¿liwia dodanie punktu do wyniku wybranego gracza.
-    /// W zale¿noœci od wartoœci parametru <paramref name="isLeft"/>, punkt zostaje dodany
-    /// albo lewemu graczowi (gdy <paramref name="isLeft"/> ma wartoœæ true), albo prawego gracza (gdy false).
-    /// Po zaktualizowaniu wyniku, metoda synchronizuje zmienion¹ wartoœæ z interfejsem u¿ytkownika.
-    /// </summary>
-    /// <param name="isLeft">
-    /// Okreœla, czy punkt ma zostaæ dodany do wyniku lewego gracza (true) czy prawego gracza (false).
-    /// </param>
-    public void AddPoint(bool isLeft) // Definicja metody publicznej, która umo¿liwia dodawanie punktu poprzez wywo³anie z zewn¹trz.
+    public void AddPoint(bool isLeft) // Metoda dodaj¹ca punkt do wyniku wskazanego gracza
     {
-        // Rejestruje w konsoli informacjê, do którego gracza punkt zostaje dodany.
-        Debug.Log("Dodawanie punktu: " + (isLeft ? "Lewy gracz" : "Prawy gracz"));
+        Debug.Log("Dodawanie punktu: " + (isLeft ? "Lewy gracz" : "Prawy gracz")); // Wyœwietla w konsoli, do którego gracza dodano punkt
 
-        if (isLeft) // Je¿eli parametr isLeft jest prawdziwy, operujemy na wyniku lewego gracza.
+        if (isLeft) // Jeœli punkt ma byæ dodany lewemu graczowi
         {
-            scoreLeft++; // Zwiêksza wynik lewego gracza o 1.
-            // Logowanie aktualnej wartoœci wyniku lewego gracza.
-            Debug.Log("Nowy wynik lewego gracza: " + scoreLeft);
-            if (scoreLeftText != null) // Sprawdza, czy referencja do obiektu UI nie jest pusta, aby unikn¹æ b³êdów podczas próby aktualizacji tekstu.
-                scoreLeftText.text = scoreLeft.ToString(); // Aktualizuje tekst wyœwietlany na ekranie, konwertuj¹c aktualny wynik lewego gracza na ci¹g znaków.
+            scoreLeft++; // Zwiêksza liczbê punktów lewego gracza o 1
+            Debug.Log("Nowy wynik lewego gracza: " + scoreLeft); // Wyœwietla aktualny wynik lewego gracza w konsoli
+            if (scoreLeftText != null) // Sprawdza, czy komponent tekstowy dla wyniku lewego gracza nie jest pusty
+                scoreLeftText.text = scoreLeft.ToString(); // Aktualizuje tekst w UI, konwertuj¹c wartoœæ liczbow¹ na string
         }
-        else // W przeciwnym przypadku, gdy isLeft ma wartoœæ false, operujemy na wyniku prawego gracza.
+        else // Jeœli punkt ma byæ dodany prawemu graczowi
         {
-            scoreRight++; // Zwiêksza wynik prawego gracza o 1.
-            // Logowanie aktualnej wartoœci wyniku prawego gracza.
-            Debug.Log("Nowy wynik prawego gracza: " + scoreRight);
-            if (scoreRightText != null) // Sprawdza, czy referencja do obiektu UI nie jest pusta.
-                scoreRightText.text = scoreRight.ToString(); // Aktualizuje tekst wyœwietlany dla wyniku prawego gracza, przekszta³caj¹c liczbê w string.
+            scoreRight++; // Zwiêksza liczbê punktów prawego gracza o 1
+            Debug.Log("Nowy wynik prawego gracza: " + scoreRight); // Wyœwietla aktualny wynik prawego gracza w konsoli
+            if (scoreRightText != null) // Sprawdza, czy komponent tekstowy dla wyniku prawego gracza nie jest pusty
+                scoreRightText.text = scoreRight.ToString(); // Aktualizuje tekst w UI, konwertuj¹c wartoœæ liczbow¹ na string
+        }
+        CheckGameEnd(); // Wywo³uje metodê sprawdzaj¹c¹, czy gra siê zakoñczy³a
+    }
+
+    private void CheckGameEnd() // Metoda sprawdzaj¹ca, czy któryœ gracz osi¹gn¹³ maksymaln¹ liczbê punktów
+    {
+        if (scoreLeft >= maxScore || scoreRight >= maxScore) // Jeœli którykolwiek gracz osi¹gn¹³ maksymalny wynik
+        {
+            Debug.Log("Koniec gry! Zwyciêzca: " + (scoreLeft >= maxScore ? "Lewy gracz" : "Prawy gracz")); // Wyœwietla w konsoli zwyciêzcê
+            Time.timeScale = 0; // Zatrzymuje czas gry, blokuj¹c dalsz¹ rozgrywkê
         }
     }
 }
